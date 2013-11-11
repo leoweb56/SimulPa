@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Simulador de Primeros Auxilios</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+	
+    <link type="text/css" href="css/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="css/jquery.ui.1.10.0.ie.css"/>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3"><h1>Qué patología tiene la victima?</h1></div>
+			<div class="col-md-6 col-md-offset-3" id="time"></div>
+			<div class="col-md-6 col-md-offset-3">
+		    <div class="input-group">
+		    	<input type="text" class="form-control" id="consulta">
+				<span class="input-group-btn">
+					<button class="btn btn-default" data-bind="click: verificar" type="button">Verificar!</button>
+				</span>
+		    </div><!-- /input-group -->
+		  </div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+		<br>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<th>Consulta</th>
+							<th>Respuesta</th>
+							<th>Signo/Sintoma</th>
+							<th>Tiempo</th>
+						</thead>
+						<tbody>
+							<!-- ko foreach: respuestas -->
+							<tr>
+								<td data-bind="text: label "></td>
+								<td data-bind="text: resp "></td>
+								<td data-bind="text: sintoma "></td>
+								<td data-bind="text: tiempo "></td>
+							</tr>
+							<!-- /ko -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div><!-- /.row -->
+	</div>
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.stopwatch.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/knockout.js"></script>
+    <script src="js/personas.js"></script>
+    <script src="js/simulpa.js"></script>
+    <script>
+    	var SimulPa = SimulPaVM;
+    	SimulPa.init();
+    	ko.applyBindings(SimulPa);
+    </script>
+</body>
+</html>
