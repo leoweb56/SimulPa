@@ -1,32 +1,10 @@
-var preguntas = [
-	{label: "Esta consciente?", resp: "", id: 1, sintoma : "", tiempo: ""},
-	{label: "Cómo se llama?", resp: "", id: 2, sintoma : "", tiempo: ""},
-	{label: "Cual es su nombre?", resp: "", id: 3, sintoma : "", tiempo: ""},
-	{label: "responde lentamente?", resp: "", id: 4, sintoma : "", tiempo: ""}
-];
-
-var signosSintomas = [
-	{id: 1, desc: "consciente", preguntaId: -1},
-	{id: 2, desc: "inconsciente", preguntaId: -1},
-	{id: 3, desc: "suduracion fria", preguntaId: -1},
-	{id: 4, desc: "obnubilacion / respuesta lenta", preguntaId: 4},
-
-];
-
-var patologias = [
-	{id: 1, nombre: "Desfallecimiento", signoSintomaIds: [4], signosSintomas: []},
-	{id: 2, nombre: "Desmayo/Lipotimia", signoSintomaIds: [], signosSintomas: []}, 
-	{id: 3, nombre: "Shock", signoSintomaIds: [], signosSintomas: []},
-	{id: 4, nombre:  "Crisis convulsiva", signoSintomaIds: [], signosSintomas: []}
-];
-
 var patologia = function(datos){
 	var self = this;
 	self.datos = datos;
 
 	self.init = function(){
 		ko.utils.arrayForEach(self.datos.signoSintomaIds, function(id){
-			var sintoma = ko.utils.arrayFirst(signosSintomas, function(sintoma){ return sintoma.id == id});
+			var sintoma = ko.utils.arrayFirst(info.signosSintomas, function(sintoma){ return sintoma.id == id});
 			if (sintoma != null)
 				self.datos.signosSintomas.push(sintoma);
 		});
@@ -64,29 +42,26 @@ var victima = function(datos){
 				self.patologia.responder(pregunta);
 		}
 	};
-	//self.patologia = new patologia(patologias[Math.floor((Math.random()*patologias.length)-1)]);
-	self.patologia = new patologia(patologias[0]);
+	//self.patologia = new patologia(info.patologias[Math.floor((Math.random()*info.patologias.length)-1)]);
+	self.patologia = new patologia(info.patologias[0]);
 }
 
 var SimulPaVM = {
-	victima : new victima(personas[Math.floor((Math.random()*personas.length)-1)]),
-	initTime : false,
-	preguntas : preguntas,
+	victima : new victima(info.personas[Math.floor((Math.random()*info.personas.length)-1)]),
+	preguntas : info.preguntas,
 	respuestas: ko.observableArray([]),
 
 	init: function(){
+		$('#time').stopwatch({format:'{M}m, {s}s'}).stopwatch('start');
+
 		$("#consulta").autocomplete({
-			minLength: 0,
-	    	source: preguntas,
+			minLength: 3,
+	    	source: info.preguntas,
 	    	focus: function( event, ui ) {
 	        	$( "#consulta" ).val( ui.item.label );
 	        	return false;
 	      	},
 	      	select: function(event, ui){
-	      		if (!SimulPaVM.initTime) { 
-					SimulPaVM.initTime = true;
-					$('#time').stopwatch({format:'{M}m, {s}s'}).stopwatch('start');
-				};
 	      		SimulPaVM.victima.responder(ui.item);
 	      		ui.item.tiempo = $('#time').text();
 	      		SimulPaVM.respuestas.push(ui.item);
@@ -96,13 +71,4 @@ var SimulPaVM = {
 	      	},
 		});
 	},
-
-	verificar: function(){
-		if (!SimulPaVM.initTime) { 
-			SimulPaVM.initTime = true;
-			$('#time').stopwatch({format:'{M}m, {s}s'}).stopwatch('start');
-		};
-
-
-	}
 }

@@ -13,18 +13,20 @@
     <!--[if lt IE 9]>
     <link rel="stylesheet" type="text/css" href="css/jquery.ui.1.10.0.ie.css"/>
     <![endif]-->
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3"><h1>Qué patología tiene la victima?</h1></div>
-			<div class="col-md-6 col-md-offset-3" id="time"></div>
+			<div class="col-md-6 col-md-offset-3 label label-success" id="time"></div>
+			<div class="clearfix"></div>
+			<br>
 			<div class="col-md-6 col-md-offset-3">
 		    <div class="input-group">
+		    	<span class="input-group-addon">Verificar</span>
 		    	<input type="text" class="form-control" id="consulta">
-				<span class="input-group-btn">
-					<button class="btn btn-default" data-bind="click: verificar" type="button">Verificar!</button>
-				</span>
 		    </div><!-- /input-group -->
 		  </div><!-- /.col-lg-6 -->
 		</div><!-- /.row -->
@@ -64,7 +66,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/knockout.js"></script>
-    <script src="js/personas.js"></script>
+    <script src="js/info.js"></script>
     <script src="js/simulpa.js"></script>
     <script>
     	var SimulPa = SimulPaVM;
