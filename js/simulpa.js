@@ -43,7 +43,7 @@ var victima = function(datos){
 		}
 	};
 	//self.patologia = new patologia(info.patologias[Math.floor((Math.random()*info.patologias.length)-1)]);
-	self.patologia = new patologia(info.patologias[0]);
+	self.patologia = new patologia(info.patologias[2]);
 }
 
 var SimulPaVM = {
